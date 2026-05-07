@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Cairo', sans-serif;
+  background: #121212;
+  color: white;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.section {
+  @apply py-20 px-6 md:px-16;
+}
+
+.title {
+  @apply text-4xl md:text-5xl font-bold text-gold mb-6;
+}
