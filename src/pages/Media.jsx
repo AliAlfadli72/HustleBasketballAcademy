@@ -1,85 +1,140 @@
-import { motion } from "framer-motion";
-import { Play, ArrowLeft } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { Play, ArrowLeft, X, Eye } from "lucide-react";
 
 const mediaItems = [
   {
-    image: "https://images.unsplash.com/photo-1519861531473-9200262188bf",
+    id: 1,
+    image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=600",
+    title: "تدريبات السرعة للناشئين",
+    category: "تدريبات",
+    desc: "توثيق تدريبات اللياقة المكثفة وتطوير سرعة الحركة لـ Rookies في ملعبنا.",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Placeholder for actual video
+    heightClass: "h-72 md:h-[300px]"
+  },
+  {
+    id: 2,
+    image: "https://images.unsplash.com/photo-1544698310-74ea9d1c8258?q=80&w=600",
+    title: "نهائي بطولة هاسل 3x3",
+    category: "بطولات",
+    desc: "أجواء المباراة النهائية الحماسية بحضور جماهيري لافت في صالة تشرين دمشق.",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    heightClass: "h-96 md:h-[450px]"
+  },
+  {
+    id: 3,
+    image: "https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=600",
     title: "معسكر هاسل الصيفي 24",
     category: "معسكرات",
-    desc: "أجواء الحماس والتطوير المكثف في مدينة تشرين الرياضية."
+    desc: "لقطات سريعة من الحصص التدريبية المكثفة والورش المهارية في العطلة الصيفية.",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    heightClass: "h-80 md:h-[360px]"
   },
   {
-    image: "https://images.unsplash.com/photo-1546519638-68e109498ffc",
-    title: "تدريبات فريق Girls 16",
+    id: 4,
+    image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=600",
+    title: "تمارين تكتيك فريق Girls U16",
     category: "تدريبات",
-    desc: "تمكين الفتيات من خلال مهارات كرة السلة الاحترافية."
+    desc: "تركيز فني وتطوير تسديد المسافات الطويلة للاعبات الأكاديمية.",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    heightClass: "h-96 md:h-[420px]"
   },
   {
-    image: "https://images.unsplash.com/photo-1517649763962-0c623066013b",
-    title: "بطولة هاسل 3x3",
-    category: "بطولات",
-    desc: "منافسات قوية بمشاركة واسعة من الأندية المحلية."
+    id: 5,
+    image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=600",
+    title: "تطوير التسديد الخاص One-on-One",
+    category: "تدريبات",
+    desc: "جلسة تدريب فردية مغلقة تركز على ميكانيكا ودقة الرمية الثلاثية.",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    heightClass: "h-72 md:h-[320px]"
   },
   {
-    image: "https://images.unsplash.com/photo-1518604666860-9ed391f76460",
-    title: "جلسات التدريب الخاص",
-    category: "تطوير مهارات",
-    desc: "تطوير تقنيات التسديد والمراوغة الفردية."
-  },
-  {
-    image: "https://images.unsplash.com/photo-1515523110800-9415d13b84a8",
-    title: "فعالية يوم العائلة",
-    category: "فعاليات",
-    desc: "بناء روابط مجتمعية بين اللاعبين وذويهم خارج الملعب."
-  },
-  {
-    image: "https://images.unsplash.com/photo-1504450758481-7338eba7524a",
-    title: "التعاون مع 963",
+    id: 6,
+    image: "https://images.unsplash.com/photo-1505666287802-931dc83948e9?q=80&w=600",
+    title: "جلسة التصوير مع براند 963",
     category: "شراكات",
-    desc: "جلسة تصوير خاصة بالتعاون مع العلامة التجارية 963."
+    desc: "التعاون الحصري مع العلامة التجارية السورية الرائدة 963 لتجهيز ملابس الفريق.",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    heightClass: "h-80 md:h-[380px]"
   },
 ];
 
+const categories = ["الكل", "بطولات", "تدريبات", "معسكرات", "شراكات"];
+
 export default function Media() {
+  const [activeFilter, setActiveFilter] = useState("الكل");
+  const [selectedVideo, setSelectedVideo] = useState(null);
+
+  const filteredItems = activeFilter === "الكل"
+    ? mediaItems
+    : mediaItems.filter(item => item.category === activeFilter);
+
   return (
-    <section className="relative overflow-hidden bg-[#212121] text-white">
-      {/* Brand Background Glows */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#611977]/20 blur-[120px] rounded-full" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#FFD54F]/10 blur-[120px] rounded-full" />
+    <section className="relative overflow-hidden bg-dark text-white font-sans">
+      {/* Background Lighting */}
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full" />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full" />
 
-      <div className="relative max-w-7xl mx-auto px-6 py-28">
+      <div className="relative max-w-7xl mx-auto px-4 md:px-8 py-24">
+        
         {/* Header */}
-        <div className="text-center max-w-4xl mx-auto mb-20">
-          <motion.span 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#611977]/20 border border-[#611977]/40 text-[#FFD54F] text-sm mb-8"
-          >
-            🎥 المركز الإعلامي لأكاديمية هاسل
-          </motion.span>
+        <div className="text-center max-w-4xl mx-auto mb-16 relative">
+          <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 select-none pointer-events-none opacity-10">
+            <h2 className="text-outline text-8xl md:text-9xl font-black uppercase tracking-tighter">
+              GALLERY
+            </h2>
+          </div>
+          <span className="inline-flex items-center gap-2 px-5 py-2 bg-primary/10 border border-primary/25 text-primary text-sm font-black mb-6 transform -skew-x-12">
+            🎥 المركز الإعلامي • هاسل
+          </span>
 
-          <motion.h1 
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            className="text-5xl md:text-7xl font-black mb-8"
-          >
-            نوثق <span className="text-[#FFD54F]">الشغف</span>
-          </motion.h1>
+          <h1 className="text-5xl md:text-8xl font-black mb-6 leading-none tracking-tighter">
+            شاهد <span className="text-primary">الشغف</span>
+          </h1>
 
-          <p className="text-gray-300 text-lg md:text-xl leading-10 font-['Noto_Sans_Arabic']">
-            اكتشف أبرز اللحظات من قلب الحدث في مدينة تشرين الرياضية؛ حيث يلتقي الانضباط بالحماس في كل لقطة.
+          <p className="text-silver text-lg md:text-2xl leading-relaxed max-w-2xl mx-auto font-bold">
+            توثيق كامل للعمل الشاق، العرق، العقلية، ولحظات الانتصار داخل ملاعب مدينة تشرين الرياضية بدمشق.
           </p>
         </div>
 
-        {/* Categories Filter */}
-        <div className="flex flex-wrap justify-center gap-4 mb-20 font-bold">
-          {["الكل", "بطولات", "تدريبات", "معسكرات", "شراكات"].map((filter, i) => (
+        {/* 1. HERO VIDEO CONTAINER - Spotlight Design */}
+        <div className="mb-24">
+          <div className="relative overflow-hidden border-2 border-white/10 hover:border-primary/50 transition-colors h-[400px] md:h-[600px] group shadow-[0_0_35px_rgba(255,107,0,0.15)] transform -skew-y-1">
+            <div className="transform skew-y-1 h-full w-full relative">
+              <img
+                src="https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=1200"
+                alt="Hustle Academy Promo Cinematic Spotlights"
+                className="w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-60 brightness-75"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent" />
+              
+              {/* Central Play Button */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
+                <motion.button 
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setSelectedVideo("https://www.youtube.com/embed/dQw4w9WgXcQ")}
+                  className="w-24 h-24 bg-primary text-black flex items-center justify-center border-b-4 border-white shadow-[0_0_30px_rgba(255,107,0,0.6)] group-hover:bg-white group-hover:shadow-[0_0_40px_rgba(255,255,255,0.4)] transition-all duration-300 transform -skew-x-12"
+                >
+                  <Play className="transform skew-x-12" fill="currentColor" size={32} />
+                </motion.button>
+                <h2 className="text-3xl md:text-5xl font-black text-white mt-8 mb-4 uppercase">فيديو هاسل التعريفي (Hustle 24)</h2>
+                <p className="text-silver max-w-xl text-base md:text-lg font-bold">تعرف على فلسفة الأكاديمية وكواليس التدريب الشاق بمدينة تشرين</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 2. CATEGORY FILTERS */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12 font-black transform -skew-x-6">
+          {categories.map((filter, i) => (
             <button
               key={i}
-              className={`px-8 py-3 rounded-full border transition-all ${
-                i === 0 
-                ? "bg-[#611977] border-[#611977] text-white shadow-lg" 
-                : "bg-white/5 border-white/10 text-gray-400 hover:border-[#FFD54F]/50"
+              onClick={() => setActiveFilter(filter)}
+              className={`px-6 py-2.5 text-sm transform skew-x-6 transition-all duration-300 ${
+                activeFilter === filter
+                  ? "bg-primary text-black shadow-[0_0_15px_rgba(255,107,0,0.4)]"
+                  : "bg-accent border border-white/5 text-silver hover:text-white hover:border-white/20"
               }`}
             >
               {filter}
@@ -87,88 +142,121 @@ export default function Media() {
           ))}
         </div>
 
-        {/* Video Feature Section */}
-        <div className="mb-24">
-          <div className="relative overflow-hidden rounded-[40px] border border-white/10 h-[500px] md:h-[650px] group shadow-2xl">
-            <img
-              src="https://images.unsplash.com/photo-1546519638-68e109498ffc"
-              alt="Hustle Promo"
-              className="w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-60"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#212121] via-transparent to-transparent" />
-            
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
-              <motion.button 
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className="w-24 h-24 rounded-full bg-[#FFD54F] text-[#212121] flex items-center justify-center mb-8 shadow-2xl"
+        {/* 3. MASONRY GRID GALLERY */}
+        <motion.div 
+          layout 
+          className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 [column-fill:_balance] box-border"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredItems.map((item) => (
+              <motion.div
+                key={item.id}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.3 }}
+                className="break-inside-avoid bg-accent border border-white/5 hover:border-primary/50 group transition-all duration-300 relative overflow-hidden cursor-pointer"
+                onClick={() => setSelectedVideo(item.videoUrl)}
               >
-                <Play fill="currentColor" size={32} />
-              </motion.button>
-              <h2 className="text-4xl md:text-6xl font-black text-white mb-4">هاسل: أكثر من مجرد تدريب</h2>
-              <p className="text-white/80 max-w-xl text-lg">شاهد الفيديو التعريفي بالأكاديمية وبرامجنا لعام 2024</p>
-            </div>
-          </div>
-        </div>
+                {/* Cinematic Image container with dynamic height */}
+                <div className={`relative ${item.heightClass} overflow-hidden`}>
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition duration-700 brightness-75 group-hover:brightness-90"
+                  />
+                  {/* Category tag */}
+                  <span className="absolute top-4 left-4 bg-primary text-black text-xs font-black px-3 py-1 transform -skew-x-12 border-b-2 border-white">
+                    {item.category}
+                  </span>
 
-        {/* Grid Gallery */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {mediaItems.map((item, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="group bg-[#1a1a1a] rounded-[32px] overflow-hidden border border-white/5 hover:border-[#611977]/50 transition-all shadow-xl"
-            >
-              <div className="relative h-64 overflow-hidden">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
-                />
-                <span className="absolute top-4 left-4 bg-[#FFD54F] text-[#212121] text-xs font-black px-4 py-2 rounded-full">
-                  {item.category}
-                </span>
-              </div>
-              <div className="p-8">
-                <h3 className="text-2xl font-bold text-white mb-3">{item.title}</h3>
-                <p className="text-gray-400 text-sm leading-7 mb-6 font-['Noto_Sans_Arabic']">
-                  {item.desc}
-                </p>
-                <button className="flex items-center gap-2 text-[#FFD54F] font-bold group-hover:gap-4 transition-all text-sm">
-                  عرض الألبوم <ArrowLeft size={16} />
-                </button>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                  {/* Play/View Hover Overlay */}
+                  <div className="absolute inset-0 bg-dark/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
+                    <div className="w-16 h-16 bg-primary text-black flex items-center justify-center transform -skew-x-12 shadow-[0_0_20px_rgba(255,107,0,0.5)]">
+                      <Play className="transform skew-x-12" fill="currentColor" size={24} />
+                    </div>
+                  </div>
+                </div>
 
-        {/* Social Feed CTA */}
+                {/* Description info */}
+                <div className="p-6">
+                  <h3 className="text-xl font-black text-white group-hover:text-primary transition-colors mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-silver text-xs md:text-sm leading-relaxed font-bold">
+                    {item.desc}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+        {/* 4. SOCIAL INTERACTION ROW */}
         <div className="mt-32">
-          <div className="bg-gradient-to-r from-[#611977] to-[#4a125a] rounded-[40px] p-12 text-center shadow-2xl relative overflow-hidden">
-            {/* Background Decorative Circles */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32" />
-            
-            <div className="relative z-10">
-              <h2 className="text-3xl md:text-5xl font-black mb-6">
-                هل تريد رؤية المزيد؟
-              </h2>
-              <p className="text-white/80 text-lg mb-10 max-w-2xl mx-auto">
-                كن جزءاً من مجتمعنا النشط وتابع تغطيتنا اليومية للتدريبات والبطولات عبر إنستغرام.
+          <div className="bg-accent border-l-4 border-primary p-12 text-center relative overflow-hidden transform -skew-y-1">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+            <div className="relative z-10 transform skew-y-1">
+              <h2 className="text-2xl md:text-4xl font-black uppercase mb-4">تابع الغريند اليومي على إنستغرام</h2>
+              <p className="text-silver text-base md:text-lg mb-8 max-w-2xl mx-auto font-bold">
+                نقوم بتغطية يومية للتدريبات، اللحظات الطريفة، وتطور اللاعبين على حسابنا الرسمي. كن جزءاً من عائلتنا الرقمية!
               </p>
               <a 
                 href="https://instagram.com/hustleball_academy" 
                 target="_blank"
                 rel="noreferrer"
-                className="inline-block bg-[#FFD54F] text-[#212121] px-10 py-4 rounded-full font-black text-lg hover:scale-105 transition"
+                className="inline-block bg-primary hover:bg-[#e05e00] text-black font-black text-lg px-10 py-4 transform -skew-x-12 border-b-4 border-white transition-all hover:scale-105 hover:shadow-[0_0_25px_rgba(255,107,0,0.5)]"
               >
-                @hustleball_academy
+                <span className="block transform skew-x-12">@hustleball_academy</span>
               </a>
             </div>
           </div>
         </div>
+
       </div>
+
+      {/* 5. INTERACTIVE VIDEO PLAYER POPUP MODAL */}
+      <AnimatePresence>
+        {selectedVideo && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/90 backdrop-blur-md z-[200] flex items-center justify-center p-4"
+            onClick={() => setSelectedVideo(null)}
+          >
+            <motion.div 
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.95 }}
+              className="bg-accent border-2 border-primary/30 w-full max-w-4xl relative overflow-hidden"
+              onClick={e => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button 
+                onClick={() => setSelectedVideo(null)}
+                className="absolute top-4 right-4 text-white hover:text-primary z-50 w-10 h-10 bg-dark/80 flex items-center justify-center border border-white/10"
+              >
+                <X size={20} />
+              </button>
+
+              {/* Video Aspect Ratio */}
+              <div className="aspect-video w-full">
+                <iframe
+                  className="w-full h-full"
+                  src={selectedVideo}
+                  title="Hustle Academy Basketball Video Highlight"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </section>
   );
 }

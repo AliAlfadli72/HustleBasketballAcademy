@@ -14,37 +14,37 @@ export default function Header() {
   const [mobileMenu, setMobileMenu] = useState(false);
 
   return (
-    <header className="sticky top-0 z-[100] border-b border-white/5 bg-[#212121]/80 backdrop-blur-xl font-['Noto_Sans_Arabic']">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between h-24">
+    <header className="sticky top-0 z-[100] border-b border-white/10 bg-dark/95 backdrop-blur-md font-sans">
+      <div className="max-w-7xl mx-auto px-4 md:px-8">
+        <div className="flex items-center justify-between h-20 md:h-24">
           
-          {/* Logo - Updated to match Royal Purple identity */}
-          <Link to="/" className="flex items-center gap-4 group">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#611977] to-[#4a125a] flex items-center justify-center shadow-lg shadow-[#611977]/30 group-hover:scale-110 transition duration-500">
-              <span className="text-[#FFD54F] text-2xl font-black italic">H</span>
+          {/* Logo - Asymmetric Sporty Design */}
+          <Link to="/" className="flex items-center gap-3 group relative z-50">
+            <div className="w-12 h-12 md:w-14 md:h-14 bg-primary flex items-center justify-center transform -skew-x-12 border-b-4 border-r-2 border-white shadow-[0_0_15px_rgba(255,107,0,0.4)] group-hover:scale-105 transition duration-300">
+              <span className="text-black text-xl md:text-2xl font-black italic transform skew-x-12">H</span>
             </div>
 
-            <div className="hidden sm:block">
-              <h1 className="text-2xl font-black tracking-tighter text-white">
-                HUSTLE <span className="text-[#FFD54F]">ACADEMY</span>
+            <div className="text-right">
+              <h1 className="text-xl md:text-2xl font-black tracking-tighter text-white leading-none font-display">
+                HUSTLE <span className="text-primary">ACADEMY</span>
               </h1>
-              <p className="text-[10px] text-gray-400 tracking-[0.4em] uppercase font-bold leading-none">
-                Basket For All
+              <p className="text-[9px] text-silver tracking-[0.2em] uppercase font-bold mt-1">
+                BASKET FOR ALL
               </p>
             </div>
           </Link>
 
-          {/* Desktop Navigation - Modern Pill Shape */}
-          <nav className="hidden lg:flex items-center gap-1 bg-white/5 border border-white/10 p-1.5 rounded-2xl">
+          {/* Desktop Navigation - Sharp Asymmetric Pills */}
+          <nav className="hidden lg:flex items-center gap-1.5 bg-accent border border-white/10 p-1.5 transform -skew-x-6">
             {navLinks.map((link, index) => (
               <NavLink
                 key={index}
                 to={link.path}
                 className={({ isActive }) =>
-                  `px-6 py-2.5 rounded-xl text-sm font-bold transition-all duration-500 ${
+                  `px-5 py-2 transform skew-x-6 text-sm font-black transition-all duration-300 ${
                     isActive
-                      ? "bg-[#FFD54F] text-[#212121] shadow-lg shadow-[#FFD54F]/20"
-                      : "text-gray-300 hover:text-white hover:bg-white/5"
+                      ? "bg-primary text-black shadow-[0_0_15px_rgba(255,107,0,0.35)]"
+                      : "text-silver hover:text-white hover:bg-white/5"
                   }`
                 }
               >
@@ -53,45 +53,44 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Right Actions */}
+          {/* Right Action CTA Button */}
           <div className="hidden lg:flex items-center gap-4">
-
             <Link
               to="/contact"
-              className="bg-white text-[#212121] hover:bg-[#FFD54F] transition-colors duration-300 px-8 py-3.5 rounded-2xl font-black text-sm uppercase tracking-wider"
+              className="bg-primary hover:bg-[#e05e00] text-black font-black text-sm uppercase px-8 py-3 transform -skew-x-12 border-b-4 border-white transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,107,0,0.5)]"
             >
-              سجل الآن
+              <span className="block transform skew-x-12">سجل الآن</span>
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenu(!mobileMenu)}
-            className="lg:hidden w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-[#611977] transition-colors"
+            className="lg:hidden w-12 h-12 rounded-none bg-accent border border-white/10 flex items-center justify-center text-white hover:bg-primary hover:text-black transition-colors"
           >
             {mobileMenu ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu - Updated with Brand Colors */}
+      {/* Mobile Menu - Intense Skewed Overlay */}
       <div
-        className={`lg:hidden absolute w-full left-0 bg-[#1a1a1a] border-b border-white/5 transition-all duration-500 ease-in-out ${
-          mobileMenu ? "max-h-screen opacity-100" : "max-h-0 opacity-0 pointer-events-none"
+        className={`lg:hidden absolute w-full left-0 bg-[#0d0d0d] border-b border-white/10 transition-all duration-500 ease-in-out ${
+          mobileMenu ? "max-h-screen opacity-100 py-8" : "max-h-0 opacity-0 pointer-events-none"
         }`}
       >
-        <div className="px-6 py-10">
-          <nav className="flex flex-col gap-4">
+        <div className="px-6">
+          <nav className="flex flex-col gap-3">
             {navLinks.map((link, index) => (
               <NavLink
                 key={index}
                 to={link.path}
                 onClick={() => setMobileMenu(false)}
                 className={({ isActive }) =>
-                  `px-6 py-5 rounded-2xl text-xl font-black transition-all ${
+                  `px-6 py-4 text-lg font-black transition-all border-l-4 ${
                     isActive
-                      ? "bg-[#611977] text-white"
-                      : "bg-[#212121] text-gray-400 border border-white/5"
+                      ? "bg-primary/10 border-primary text-white"
+                      : "bg-accent text-silver border-transparent hover:border-white/20"
                   }`
                 }
               >
@@ -100,11 +99,11 @@ export default function Header() {
             ))}
           </nav>
 
-          <div className="mt-10 space-y-4">
+          <div className="mt-8 space-y-4">
             <Link
               to="/contact"
               onClick={() => setMobileMenu(false)}
-              className="block text-center bg-[#FFD54F] text-[#212121] py-5 rounded-2xl font-black text-lg"
+              className="block text-center bg-primary text-black py-4 font-black text-lg transform -skew-x-6 border-b-4 border-white"
             >
               انضم إلينا اليوم
             </Link>
@@ -113,7 +112,7 @@ export default function Header() {
               href="https://instagram.com/hustleball_academy"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-3 text-gray-400 font-bold"
+              className="flex items-center justify-center gap-3 text-silver font-bold py-2 hover:text-primary transition-colors"
             >
               @hustleball_academy
             </a>

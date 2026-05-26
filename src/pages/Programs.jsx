@@ -1,131 +1,182 @@
 import { motion } from "framer-motion";
-import { CheckCircle2, Star, Zap, Trophy, Users } from "lucide-react";
+import { CheckCircle2, ShieldAlert, Award, Calendar, Flame } from "lucide-react";
+import { Link } from "react-router-dom";
 
-const programs = [
+const programTiers = [
   {
-    title: "برنامج الناشئين",
-    icon: <Users className="text-[#FFD54F]" size={32} />,
-    level: "من سن 5 إلى 12 سنة",
-    image: "https://images.unsplash.com/photo-1517649763962-0c623066013b",
-    description: "حصص تدريبية مخصصة للأطفال والمبتدئين لتعليم أساسيات كرة السلة وتطوير التوافق الحركي في بيئة تربوية محفزة.",
-    features: ["أساسيات التمرير والتسديد", "تطوير المهارات الحركية", "بناء الشخصية الرياضية", "مباريات تعليمية مصغرة"],
+    title: "برنامج الناشئين (Rookies)",
+    age: "5 - 12 سنة",
+    schedule: "الأحد والثلاثاء (4:00 مساءً)",
+    intensity: "مبتدئ / أساسيات",
+    intensityLevel: "ROOKIE MODE",
+    image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=600",
+    desc: "حصص تدريبية مخصصة للأطفال والمبتدئين لتعليم أساسيات كرة السلة وتطوير المهارات الحركية والتوافق العصبي العضلي في بيئة رياضية محفزة.",
+    features: ["تعليم مهارات التمرير والتسديد", "تحسين اللياقة البدنية والسرعة", "غرس روح العمل الجماعي", "مباريات داخلية مصغرة"],
+    colSpan: "md:col-span-7",
+    heightClass: "h-80 md:h-[450px]"
   },
   {
-    title: "برنامج فريق الإناث",
-    icon: <Star className="text-[#FFD54F]" size={32} />,
-    level: "فريق Girls 16",
-    image: "https://images.unsplash.com/photo-1546519638-68e109498ffc",
-    description: "برنامج تدريبي متخصص يركز على التمكين الرياضي وصقل المهارات الفنية للاعبات للمشاركة في البطولات المحلية.",
-    features: ["تكتيكات اللعب الجماعي", "رفع منسوب اللياقة", "المشاركة في دوريات 963", "تعزيز الثقة بالنفس"],
+    title: "فريق النخبة (Elite Prospects)",
+    age: "13 - 18 سنة",
+    schedule: "الإثنين والأربعاء والسبت (6:00 مساءً)",
+    intensity: "قاسي / احترافي",
+    intensityLevel: "BEAST MODE",
+    image: "https://images.unsplash.com/photo-1544698310-74ea9d1c8258?q=80&w=600",
+    desc: "تدريب فني وتكتيكي مكثف مصمم للاعبين الذين يطمحون للمنافسة على مستويات عالية والانضمام للأندية المحلية والمنتخبات الوطنية.",
+    features: ["تكتيكات اللعب المعقدة (خطط الهجوم والدفاع)", "رفع اللياقة البدنية والتحمل العالي", "تدريب فردي مخصص لتطوير المراوغة والتصويب", "المشاركة في بطولات الفئات العمرية"],
+    colSpan: "md:col-span-5",
+    heightClass: "h-96 md:h-[500px]"
   },
   {
-    title: "معسكرات هاسل (Hustle Camp)",
-    icon: <Zap className="text-[#FFD54F]" size={32} />,
-    level: "معسكرات موسمية مكثفة",
-    image: "https://images.unsplash.com/photo-1519861531473-9200262188bf",
-    description: "معسكرات تطويرية مكثفة (مثل معسكر 24) تقام في العطلات لرفع المستوى الفني والبدني في وقت قياسي.",
-    features: ["تدريبات صباحية ومسائية", "ورش عمل فنية", "تحديات مهارية يومية", "شهادات مشاركة"],
+    title: "معسكر المهارات والتصويب (Skills Camp)",
+    age: "مفتوح لكافة الأعمار",
+    schedule: "معسكرات موسمية مكثفة (نهاية الأسبوع)",
+    intensity: "تركيز عالي جداً",
+    intensityLevel: "HIGH FOCUS",
+    image: "https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=600",
+    desc: "معسكرات تدريبية مركزة تركز بشكل أساسي على ميكانيكا التصويب الصحيحة، إنهاء الكرات تحت السلة، وصناعة اللعب الفردية والذكاء الملعب.",
+    features: ["تحليل ميكانيكي لحركة التسديد", "تدريبات سرعة رد الفعل واتخاذ القرار", "تمارين ضغط فني مكثف", "شهادة إنهاء المعسكر وهدايا تذكارية"],
+    colSpan: "md:col-span-5",
+    heightClass: "h-96 md:h-[500px]"
   },
   {
-    title: "بطولات 3x3 وفعاليات",
-    icon: <Trophy className="text-[#FFD54F]" size={32} />,
-    level: "لجميع المستويات",
-    image: "https://images.unsplash.com/photo-1504450758481-7338eba7524a",
-    description: "تنظيم والمشاركة في بطولات كرة السلة الثلاثية لتعزيز روح المنافسة والاندماج في المجتمع الرياضي السوري.",
-    features: ["قواعد الـ FIBA 3x3", "جوائز للمراكز الأولى", "تغطية إعلامية احترافية", "أجواء حماسية"],
-  },
+    title: "برنامج فريق الإناث (Girls U16)",
+    age: "11 - 16 سنة (إناث)",
+    schedule: "الثلاثاء والخميس (5:30 مساءً)",
+    intensity: "حماسي / تنافسي",
+    intensityLevel: "FIERY MODE",
+    image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=600",
+    desc: "تدريبات خاصة بالفتيات تهدف لتطوير المهارات الفنية، وبناء الثقة بالنفس، وإعدادهن للمشاركة في الدوريات المحلية بالشراكة مع الأندية الوطنية.",
+    features: ["تطوير التوافق الحركي والسرعة", "جلسات إعداد ذهني وبناء شخصية قيادية", "مباريات ودية وتنافسية دورية", "بيئة رياضية شاملة وآمنة تماماً"],
+    colSpan: "md:col-span-7",
+    heightClass: "h-80 md:h-[450px]"
+  }
 ];
 
 export default function Programs() {
   return (
-    <section className="bg-[#212121] text-white overflow-hidden font-['Noto_Sans_Arabic']">
-      {/* Hero Section */}
-      <div className="relative pt-28 pb-20 px-6">
-        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#611977]/20 blur-[120px] rounded-full" />
-        
+    <section className="bg-dark text-white overflow-hidden font-sans">
+      
+      {/* 1. HERO HEADER */}
+      <div className="relative pt-24 pb-16 px-4 md:px-8 spotlight-glow">
         <div className="max-w-7xl mx-auto text-center relative z-10">
-          <motion.span 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-[#FFD54F] font-bold tracking-[0.2em] text-sm block mb-4"
-          >
-            HUSTLE TRAINING HUB
-          </motion.span>
-          <h1 className="text-5xl md:text-7xl font-black mb-8 leading-tight">
-            برامجنا <span className="text-[#FFD54F]">التدريبية</span>
+          <span className="text-primary font-black tracking-widest text-sm block mb-4 uppercase">
+            HUSTLE TRAINING SYSTEM
+          </span>
+          <h1 className="text-5xl md:text-8xl font-black mb-6 uppercase leading-none tracking-tighter">
+            برامجنا <span className="text-primary">التدريبية</span>
           </h1>
-          <p className="text-gray-400 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-            منهجيات تدريبية حديثة مستوحاة من أفضل المدارس العالمية، مصممة لتناسب المواهب السورية في قلب دمشق.
+          <p className="text-silver text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed font-bold">
+            منهجيات تدريبية حديثة وعنيفة مصممة خصيصاً لبناء لاعبي النخبة في صالات وملاعب مدينة تشرين الرياضية بدمشق.
           </p>
+        </div>
+
+        {/* Outline background text */}
+        <div className="absolute top-1/3 left-0 select-none pointer-events-none opacity-10">
+          <h2 className="text-outline text-9xl md:text-[14rem] font-black uppercase tracking-tighter">
+            SYSTEM
+          </h2>
         </div>
       </div>
 
-      {/* Stats Quick View */}
-      <div className="max-w-7xl mx-auto px-6 mb-24">
+      {/* 2. STATS OVERVIEW */}
+      <div className="max-w-7xl mx-auto px-4 md:px-8 mb-20 relative z-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { label: "منهجية حديثة", value: "100%" },
-            { label: "مدربين محترفين", value: "+12" },
-            { label: "ساعة تدريب/أسبوع", value: "40+" },
-            { label: "فرع (مدينة تشرين)", value: "01" },
+            { label: "منهجية معتمدة", value: "100%" },
+            { label: "مدربين دوليين ومحليين", value: "+12" },
+            { label: "ساعة تدريب في الأسبوع", value: "40+" },
+            { label: "ملاعب مدينة تشرين", value: "01" },
           ].map((stat, i) => (
-            <div key={i} className="bg-white/5 border border-white/10 p-6 rounded-3xl text-center">
-              <div className="text-[#FFD54F] text-3xl font-black mb-1">{stat.value}</div>
-              <div className="text-gray-400 text-sm">{stat.label}</div>
+            <div key={i} className="bg-accent border border-white/5 p-6 md:p-8 transform -skew-x-6 hover:border-primary transition-colors">
+              <div className="text-primary text-3xl md:text-4xl font-black mb-1 font-display transform skew-x-6">{stat.value}</div>
+              <div className="text-silver text-xs md:text-sm font-bold transform skew-x-6">{stat.label}</div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Programs Grid */}
-      <div className="max-w-7xl mx-auto px-6 pb-32">
-        <div className="grid lg:grid-cols-2 gap-12">
-          {programs.map((program, index) => (
+      {/* 3. SLANTED/ASYMMETRIC PROGRAMS GRID */}
+      <div className="max-w-7xl mx-auto px-4 md:px-8 pb-28 relative z-10">
+        
+        {/* Slanted Section Dividers applied directly to the container to give speed */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+          {programTiers.map((tier, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="bg-[#1a1a1a] border border-white/5 rounded-[40px] overflow-hidden group hover:border-[#611977]/50 transition-all duration-500"
+              transition={{ delay: index * 0.1 }}
+              className={`${tier.colSpan} bg-accent border border-white/5 hover:border-primary transition-all duration-300 group hover:shadow-[0_0_30px_rgba(255,107,0,0.2)]`}
             >
-              <div className="relative h-72 overflow-hidden">
-                <img 
-                  src={program.image} 
-                  alt={program.title} 
-                  className="w-full h-full object-cover group-hover:scale-110 transition duration-700 opacity-80" 
+              {/* Asymmetric height and photo placement */}
+              <div className={`relative ${tier.heightClass} overflow-hidden`}>
+                <img
+                  src={tier.image}
+                  alt={tier.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition duration-700 brightness-75 group-hover:brightness-90"
                 />
-                <div className="absolute top-6 left-6 bg-[#611977] text-white px-4 py-2 rounded-full text-xs font-bold">
-                  {program.level}
+                
+                {/* Intensity Indicator Badge - Neon/Glowing design */}
+                <div className="absolute top-4 left-4 bg-black/90 border border-primary text-primary px-3 py-1 font-black text-xs uppercase tracking-wider transform -skew-x-12">
+                  INTENSITY: {tier.intensityLevel}
                 </div>
-                <div className="absolute bottom-6 right-6 w-16 h-16 bg-[#212121] rounded-2xl flex items-center justify-center border border-white/10 backdrop-blur-md">
-                  {program.icon}
+
+                {/* Corner Age Tag */}
+                <div className="absolute bottom-4 right-4 bg-primary text-black font-black px-4 py-2 text-sm transform -skew-x-12 border-b-2 border-white">
+                  {tier.age}
                 </div>
               </div>
 
-              <div className="p-10">
-                <h3 className="text-3xl font-black mb-4 group-hover:text-[#FFD54F] transition-colors">
-                  {program.title}
+              {/* Card Details */}
+              <div className="p-8 md:p-10">
+                <h3 className="text-3xl font-black mb-4 group-hover:text-primary transition-colors">
+                  {tier.title}
                 </h3>
-                <p className="text-gray-400 leading-8 mb-8">
-                  {program.description}
+                
+                <p className="text-silver leading-relaxed text-sm md:text-base mb-6 font-bold">
+                  {tier.desc}
                 </p>
 
-                <div className="grid sm:grid-cols-2 gap-4 mb-10">
-                  {program.features.map((feature, i) => (
-                    <div key={i} className="flex items-center gap-3">
-                      <CheckCircle2 size={18} className="text-[#611977]" />
-                      <span className="text-sm text-gray-300">{feature}</span>
+                {/* Metadata Row */}
+                <div className="grid sm:grid-cols-2 gap-4 bg-dark/50 p-4 border border-white/5 mb-8 text-xs font-bold text-silver">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="text-primary" size={16} />
+                    <span>المواعيد: {tier.schedule}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Flame className="text-primary" size={16} />
+                    <span>الشدة: {tier.intensity}</span>
+                  </div>
+                </div>
+
+                {/* Key Features */}
+                <div className="grid sm:grid-cols-2 gap-4 mb-8">
+                  {tier.features.map((feature, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <CheckCircle2 className="text-primary shrink-0 mt-0.5" size={16} />
+                      <span className="text-sm text-white font-medium">{feature}</span>
                     </div>
                   ))}
                 </div>
 
-                <div className="flex items-center gap-4">
-                  <button className="bg-[#FFD54F] text-[#212121] px-8 py-3 rounded-full font-black hover:scale-105 transition">
-                    سجل الآن
-                  </button>
-                  <button className="text-white border-b border-white/20 pb-1 text-sm font-bold hover:text-[#FFD54F] hover:border-[#FFD54F] transition">
-                    التفاصيل الفنية
-                  </button>
+                {/* CTAs */}
+                <div className="flex flex-wrap items-center gap-4">
+                  <Link
+                    to="/contact"
+                    className="inline-block bg-primary hover:bg-[#e05e00] text-black font-black px-6 py-3.5 transform -skew-x-12 border-b-2 border-white transition-all hover:scale-105"
+                  >
+                    <span className="block transform skew-x-12">سجل في هذا البرنامج</span>
+                  </Link>
+                  <a
+                    href="https://wa.me/963992502544"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-block border border-white/20 hover:border-primary text-white hover:text-primary font-black px-6 py-3.5 transform -skew-x-12 transition-all hover:scale-105"
+                  >
+                    <span className="block transform skew-x-12">استفسار واتساب</span>
+                  </a>
                 </div>
               </div>
             </motion.div>
@@ -133,27 +184,43 @@ export default function Programs() {
         </div>
       </div>
 
-      {/* Call to Action - Special Training */}
-      <div className="max-w-7xl mx-auto px-6 pb-32">
-        <div className="bg-gradient-to-r from-[#611977] to-[#4a125a] rounded-[50px] p-12 md:p-20 relative overflow-hidden">
-          <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl md:text-5xl font-black mb-6 italic">ONE-ON-ONE TRAINING</h2>
-              <p className="text-white/80 text-lg leading-relaxed mb-8">
-                هل تبحث عن تطوير مهارة محددة؟ نقدم جلسات تدريبية فردية تركز على تقنيات التسديد، المراوغة، والذكاء الملعب، بإشراف مباشر من كبار مدربي الأكاديمية.
+      {/* 4. PRIVATE ONE-ON-ONE INTENSE CALLOUT */}
+      <div className="max-w-7xl mx-auto px-4 md:px-8 pb-32">
+        <div className="relative overflow-hidden bg-accent border-2 border-primary/20 p-8 md:p-16 transform -skew-y-2">
+          
+          <div className="absolute right-0 top-0 w-80 h-80 bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+          <div className="relative z-10 grid md:grid-cols-12 gap-8 items-center transform skew-y-2">
+            
+            <div className="md:col-span-8">
+              <span className="text-primary font-black uppercase tracking-wider text-xs block mb-2">INDIVIDUAL ELITE DRILLS</span>
+              <h2 className="text-4xl md:text-5xl font-black mb-6 uppercase">
+                التدريب الخاص الفردي <br />
+                <span className="text-primary">One-On-One Training</span>
+              </h2>
+              <p className="text-silver text-base md:text-lg leading-relaxed mb-8 max-w-3xl font-bold">
+                هل تريد تسريع وتيرة تطورك؟ نقدم جلسات تدريبية خاصة ومغلقة تركز بنسبة 100% على نقاط ضعفك وتطور تقنيات تسديدك وحركتك بالكرة تحت إشراف نخبة من كبار مدربي الأكاديمية بشكل مباشر.
               </p>
-              <button className="bg-white text-[#611977] px-10 py-4 rounded-full font-black hover:bg-[#FFD54F] hover:text-[#212121] transition">
-                احجز جلستك الخاصة
-              </button>
+              
+              <Link
+                to="/contact"
+                className="inline-block bg-white hover:bg-primary text-black font-black px-8 py-4 transform -skew-x-12 border-b-4 border-black transition-all hover:scale-105"
+              >
+                <span className="block transform skew-x-12">احجز جلستك الخاصة الآن</span>
+              </Link>
             </div>
-            <div className="hidden md:block">
-              <div className="aspect-square bg-white/10 rounded-full border border-white/20 flex items-center justify-center">
-                 <Zap size={120} className="text-[#FFD54F] animate-pulse" />
+
+            <div className="md:col-span-4 hidden md:block">
+              <div className="aspect-square bg-dark border border-white/10 rounded-none flex items-center justify-center relative overflow-hidden group hover:border-primary transition-colors">
+                <div className="absolute inset-0 bg-primary/5 group-hover:scale-110 transition-transform"></div>
+                <Flame className="text-primary animate-pulse relative z-10" size={100} />
               </div>
             </div>
+
           </div>
         </div>
       </div>
+
     </section>
   );
 }
