@@ -7,21 +7,21 @@ export default function About() {
       name: "المدرب طارق الجابي",
       role: "المدير الفني العام",
       bio: "لاعب منتخب سوريا الوطني سابقاً ونجم نادي الجيش. يملك خبرة تمتد لأكثر من 20 عاماً في تطوير مهارات اللاعبين الشباب وصناعة الأبطال.",
-      image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=600",
+      image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=500&q=70&auto=format&fm=webp",
       specialty: "تطوير المهارات الفردية و تكتيكات اللعب",
     },
     {
       name: "المدرب غياث التونسي",
       role: "مدرب الفئات العمرية والناشئين",
       bio: "أحد أبرز مدربي الفئات السنية في دمشق. يركز على غرس أساسيات اللعبة والانضباط وبناء عقلية رياضية قوية منذ الصغر.",
-      image: "https://images.unsplash.com/photo-1505666287802-931dc83948e9?q=80&w=600",
+      image: "https://images.unsplash.com/photo-1505666287802-931dc83948e9?w=500&q=70&auto=format&fm=webp",
       specialty: "أساسيات كرة السلة و الإعداد البدني",
     },
     {
       name: "المدربة نور السمان",
       role: "مسؤولة برنامج الإناث والفتيات",
       bio: "لاعبة منتخب سوريا الوطني للسيدات سابقاً. تلتزم بتمكين الرياضيات الشابات وصقل مهاراتهن التنافسية للمشاركة في الدوريات الوطنية.",
-      image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=600",
+      image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=500&q=70&auto=format&fm=webp",
       specialty: "تكتيكات اللعب الجماعي و الإعداد الذهني",
     },
   ];
@@ -175,6 +175,7 @@ export default function About() {
                   src={coach.image}
                   alt={coach.name}
                   className="w-full h-full object-cover group-hover:scale-110 transition duration-700 brightness-75 group-hover:brightness-90"
+                  loading="lazy"
                 />
                 {/* Asymmetric Role Badge */}
                 <div className="absolute bottom-4 right-4 bg-primary text-black font-black px-4 py-2 transform -skew-x-12 border-b-2 border-white text-xs">

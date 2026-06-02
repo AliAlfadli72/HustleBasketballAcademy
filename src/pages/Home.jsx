@@ -43,9 +43,10 @@ export default function Home() {
         {/* Background Visual */}
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=1600"
+            src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=1200&q=70&auto=format&fm=webp"
             alt="Hustle Academy Basketball Chiaroscuro"
             className="w-full h-full object-cover opacity-35"
+            fetchPriority="high"
           />
           {/* Rim light spotlight overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/70 to-transparent"></div>
@@ -203,9 +204,10 @@ export default function Home() {
                 {/* Asymmetric slanted card */}
                 <div className="relative overflow-hidden transform -skew-x-3 border-2 border-white/20 hover:border-primary transition-colors">
                   <img
-                    src="https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=1200"
+                    src="https://images.unsplash.com/photo-1519861531473-9200262188bf?w=800&q=70&auto=format&fm=webp"
                     alt="Gritty Basketball Training in Damascus"
                     className="w-full h-[400px] object-cover filter brightness-75 hover:scale-105 transition-transform duration-700"
+                    loading="lazy"
                   />
                   {/* Floating badge */}
                   <div className="absolute bottom-6 right-6 bg-primary text-black font-black px-6 py-3 uppercase text-sm transform skew-x-3">

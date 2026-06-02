@@ -5,7 +5,7 @@ import { Play, ArrowLeft, X, Eye } from "lucide-react";
 const mediaItems = [
   {
     id: 1,
-    image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=600",
+    image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600&q=70&auto=format&fm=webp",
     title: "تدريبات السرعة للناشئين",
     category: "تدريبات",
     desc: "توثيق تدريبات اللياقة المكثفة وتطوير سرعة الحركة لـ Rookies في ملعبنا.",
@@ -14,7 +14,7 @@ const mediaItems = [
   },
   {
     id: 2,
-    image: "https://images.unsplash.com/photo-1544698310-74ea9d1c8258?q=80&w=600",
+    image: "https://images.unsplash.com/photo-1544698310-74ea9d1c8258?w=600&q=70&auto=format&fm=webp",
     title: "نهائي بطولة هاسل 3x3",
     category: "بطولات",
     desc: "أجواء المباراة النهائية الحماسية بحضور جماهيري لافت في صالة تشرين دمشق.",
@@ -23,7 +23,7 @@ const mediaItems = [
   },
   {
     id: 3,
-    image: "https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=600",
+    image: "https://images.unsplash.com/photo-1519861531473-9200262188bf?w=600&q=70&auto=format&fm=webp",
     title: "معسكر هاسل الصيفي 24",
     category: "معسكرات",
     desc: "لقطات سريعة من الحصص التدريبية المكثفة والورش المهارية في العطلة الصيفية.",
@@ -32,7 +32,7 @@ const mediaItems = [
   },
   {
     id: 4,
-    image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=600",
+    image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=600&q=70&auto=format&fm=webp",
     title: "تمارين تكتيك فريق Girls U16",
     category: "تدريبات",
     desc: "تركيز فني وتطوير تسديد المسافات الطويلة للاعبات الأكاديمية.",
@@ -41,7 +41,7 @@ const mediaItems = [
   },
   {
     id: 5,
-    image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=600",
+    image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&q=70&auto=format&fm=webp",
     title: "تطوير التسديد الخاص One-on-One",
     category: "تدريبات",
     desc: "جلسة تدريب فردية مغلقة تركز على ميكانيكا ودقة الرمية الثلاثية.",
@@ -50,7 +50,7 @@ const mediaItems = [
   },
   {
     id: 6,
-    image: "https://images.unsplash.com/photo-1505666287802-931dc83948e9?q=80&w=600",
+    image: "https://images.unsplash.com/photo-1505666287802-931dc83948e9?w=600&q=70&auto=format&fm=webp",
     title: "جلسة التصوير مع براند 963",
     category: "شراكات",
     desc: "التعاون الحصري مع العلامة التجارية السورية الرائدة 963 لتجهيز ملابس الفريق.",
@@ -102,9 +102,10 @@ export default function Media() {
           <div className="relative overflow-hidden border-2 border-white/10 hover:border-primary/50 transition-colors h-[400px] md:h-[600px] group shadow-[0_0_35px_rgba(255,107,0,0.15)] transform -skew-y-1">
             <div className="transform skew-y-1 h-full w-full relative">
               <img
-                src="https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=1200"
+                src="https://images.unsplash.com/photo-1546519638-68e109498ffc?w=1200&q=70&auto=format&fm=webp"
                 alt="Hustle Academy Promo Cinematic Spotlights"
                 className="w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-60 brightness-75"
+                fetchPriority="high"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent" />
               
@@ -165,6 +166,7 @@ export default function Media() {
                     src={item.image}
                     alt={item.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition duration-700 brightness-75 group-hover:brightness-90"
+                    loading="lazy"
                   />
                   {/* Category tag */}
                   <span className="absolute top-4 left-4 bg-primary text-black text-xs font-black px-3 py-1 transform -skew-x-12 border-b-2 border-white">

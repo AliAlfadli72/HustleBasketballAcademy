@@ -9,7 +9,7 @@ const programTiers = [
     schedule: "الأحد والثلاثاء (4:00 مساءً)",
     intensity: "مبتدئ / أساسيات",
     intensityLevel: "ROOKIE MODE",
-    image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=600",
+    image: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600&q=70&auto=format&fm=webp",
     desc: "حصص تدريبية مخصصة للأطفال والمبتدئين لتعليم أساسيات كرة السلة وتطوير المهارات الحركية والتوافق العصبي العضلي في بيئة رياضية محفزة.",
     features: ["تعليم مهارات التمرير والتسديد", "تحسين اللياقة البدنية والسرعة", "غرس روح العمل الجماعي", "مباريات داخلية مصغرة"],
     colSpan: "md:col-span-7",
@@ -21,7 +21,7 @@ const programTiers = [
     schedule: "الإثنين والأربعاء والسبت (6:00 مساءً)",
     intensity: "قاسي / احترافي",
     intensityLevel: "BEAST MODE",
-    image: "https://images.unsplash.com/photo-1544698310-74ea9d1c8258?q=80&w=600",
+    image: "https://images.unsplash.com/photo-1544698310-74ea9d1c8258?w=600&q=70&auto=format&fm=webp",
     desc: "تدريب فني وتكتيكي مكثف مصمم للاعبين الذين يطمحون للمنافسة على مستويات عالية والانضمام للأندية المحلية والمنتخبات الوطنية.",
     features: ["تكتيكات اللعب المعقدة (خطط الهجوم والدفاع)", "رفع اللياقة البدنية والتحمل العالي", "تدريب فردي مخصص لتطوير المراوغة والتصويب", "المشاركة في بطولات الفئات العمرية"],
     colSpan: "md:col-span-5",
@@ -33,7 +33,7 @@ const programTiers = [
     schedule: "معسكرات موسمية مكثفة (نهاية الأسبوع)",
     intensity: "تركيز عالي جداً",
     intensityLevel: "HIGH FOCUS",
-    image: "https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=600",
+    image: "https://images.unsplash.com/photo-1519861531473-9200262188bf?w=600&q=70&auto=format&fm=webp",
     desc: "معسكرات تدريبية مركزة تركز بشكل أساسي على ميكانيكا التصويب الصحيحة، إنهاء الكرات تحت السلة، وصناعة اللعب الفردية والذكاء الملعب.",
     features: ["تحليل ميكانيكي لحركة التسديد", "تدريبات سرعة رد الفعل واتخاذ القرار", "تمارين ضغط فني مكثف", "شهادة إنهاء المعسكر وهدايا تذكارية"],
     colSpan: "md:col-span-5",
@@ -45,7 +45,7 @@ const programTiers = [
     schedule: "الثلاثاء والخميس (5:30 مساءً)",
     intensity: "حماسي / تنافسي",
     intensityLevel: "FIERY MODE",
-    image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=600",
+    image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=600&q=70&auto=format&fm=webp",
     desc: "تدريبات خاصة بالفتيات تهدف لتطوير المهارات الفنية، وبناء الثقة بالنفس، وإعدادهن للمشاركة في الدوريات المحلية بالشراكة مع الأندية الوطنية.",
     features: ["تطوير التوافق الحركي والسرعة", "جلسات إعداد ذهني وبناء شخصية قيادية", "مباريات ودية وتنافسية دورية", "بيئة رياضية شاملة وآمنة تماماً"],
     colSpan: "md:col-span-7",
@@ -116,6 +116,7 @@ export default function Programs() {
                   src={tier.image}
                   alt={tier.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition duration-700 brightness-75 group-hover:brightness-90"
+                  loading="lazy"
                 />
                 
                 {/* Intensity Indicator Badge - Neon/Glowing design */}
